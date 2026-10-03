@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+.pytest_cache/
+.env
+.env.*
+# job dirs, sites and demo outputs
+jobs/
+sites/
+out/
+demo/
+*.mp4
