@@ -1,0 +1,34 @@
+[project]
+name = "farmer-palantir"
+version = "0.1.0"
+description = "Open data intelligence for Swedish farms, and the robots that act on it."
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+requires-python = ">=3.11"
+dependencies = ["numpy"]
+
+[project.optional-dependencies]
+# numpy is not pinned here: on the GPU VM, scripts/setup_robot_vm.sh installs these
+# into the Isaac-GR00T venv constrained to what it pins (numpy 1.26.4, its torch).
+sim = ["mujoco", "imageio", "imageio-ffmpeg", "pillow", "pyproj", "tifffile", "imagecodecs",
+       "pyarrow", "pandas", "matplotlib"]
+api = ["fastapi", "uvicorn", "httpx"]
+dev = ["pytest", "farmer-palantir[sim,api]"]
+
+[tool.setuptools]
+py-modules = ["robot_pipeline"]
+
+[tool.setuptools.packages.find]
+include = ["farmsim*", "robot*", "common*", "api*"]
+
+[tool.setuptools.package-data]
+farmsim = ["static/*.html"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
